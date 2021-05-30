@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+</head>
+<body>
+    <main>
+            <header>
+                <h1>welcome {{fname}}</h1>
+                <a href="/logout">Logout</a>
+        .   </header>
+            <hr>
+            <section>
+                <form action="/add_book" method="POST">
+                {% csrf_token %}
+                    <h1>
+                        Add A Favoriet Book
+                    </h1>
+                    Title<input type="text" name="title" placeholder="Add A Title" required>
+                    Description<input type="text" name="description" placeholder="Add A Description" required>
+                    <input type="submit" value="Add">
+                 </form>
+                 <h1> All Books</h1>
+        {% for i in all_books %}
+                    <a href="/show_books/{{i.id}}">{{i.title}}</a>
+                    <p>(added by {{i.users.first_name}})</p>
+            {% if i.favorit.id == i.users.id %}
+                    <p>This is one of your favorit </p>
+            {% else %}
+                    <a href="/add_to_fav/{{i.id}}">Add to favorit</a>
+            {% endif %}
+        {% endfor %}
+            </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>welcome {{email}}</h1>
+            <a href="/logout">Logout</a>
+        </header>
+        <hr>
+        {% if book.users.id == this_user_id %}
+        <div class="left_edit">
+            <form actiom="/4edit/{{book.id}}" method="POST">
+                    <input type="text" name="edit_title">
+                    <p>Added by{{book.users.first_name}}</p>
+                    <p>Added on{{book.created_at}}</p>
+                    <p>Last updateed on{{book.updated_at}}</p>
+                    <p>Description<textarea name="edit_description">
+                    <input type="submit" value-"ubdate">
+            </form>
+            <form actiom="delete/{{book.id}}" method="POST">
+                    <input type="submit" value="Delete">
+            </form>
+        </div>
+        <div class="right_edit">
+            <h1>Users Who Like This Book</h1>
+            <ul>
+            {% for x in book.favorit %}
+                <li>{{x.first_name}}</li>{% if x.id == this_user_id %}<a href="breack_up/{{book.id}}">Un_favoriet</a>{% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="left">
+            <h1>{{ book.title }}</h1>
+            <p>Added by{{book.users.first_name}}</p>
+            <p>Added on{{book.created_at}}</p>
+            <p>Last updateed on{{book.updated_at}}</p>
+            <p>{{ book.description}}</p>
+        </div>
+        <div class="right">
+            <a href="add_to_fav/{{this_user_id}}">Add to favorit</a>
+            <h1>Users Who Like This Book</h1>
+            <ul>
+            {% for x in book.favorit %}
+                <li>{{x.first_name}}</li>{% if x.id == this_user_id %}<a href="breack_up/{{book.id}}">Un_favorit</a>{% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
